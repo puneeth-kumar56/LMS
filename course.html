@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ course.title }}</h2>
+  <p class="muted">{{ course.description }}</p>
+
+  <h3>Enrolled Students</h3>
+  {% if students %}
+    <ul>
+      {% for s in students %}
+        <li>{{ s.name }} {% if s.email %}(<a href="mailto:{{ s.email }}">{{ s.email }}</a>){% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No students yet.</p>
+  {% endif %}
+
+  <h3>Enroll a student</h3>
+  <form method="post" action="/enroll">
+    <input type="hidden" name="course_id" value="{{ course.id }}">
+    <label>Name<br>
+      <input name="name" required>
+    </label>
+    <label>Email<br>
+      <input name="email" type="email">
+    </label>
+    <button type="submit">Enroll</button>
+  </form>
+{% endblock %}
