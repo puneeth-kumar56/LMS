@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Courses</h2>
+  <div class="quick-select">
+    <form method="post" action="/select_course">
+      <label>Quick select course:
+        <select name="course_id">
+          <option value="">-- choose --</option>
+          {% for c in courses %}
+            <option value="{{ c.id }}">{{ c.title }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button type="submit">Go</button>
+      <a class="muted" href="/create_course">Create course</a>
+    </form>
+  </div>
+  {% if courses %}
+    <ul class="courses">
+      {% for c in courses %}
+        <li>
+          <a href="/courses/{{ c.id }}">{{ c.title }}</a>
+          <p class="muted">{{ c.description }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No courses yet. <a href="/create_course">Create one</a>.</p>
+  {% endif %}
+{% endblock %}
